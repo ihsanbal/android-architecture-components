@@ -21,7 +21,7 @@
 #!/bin/bash
 
 function copyEnvVarsToGradleProperties {
-    PATH=$CIRCLE_WORKING_DIRECTORY"/.gradle/gradle.properties"
+    PATH="~/.gradle/gradle.properties"
 
     if [ ! -f "$PATH" ]; then
         echo "Gradle Properties does not exist"
