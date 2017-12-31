@@ -18,7 +18,7 @@
 #       pre:
 #        - source environmentSetup.sh && copyEnvVarsToGradleProperties
 
-#!/usr/bin/env bash
+#!/bin/bash
 
 function copyEnvVarsToGradleProperties {
     PATH=$CIRCLE_WORKING_DIRECTORY"~/.gradle/gradle.properties"
@@ -27,7 +27,7 @@ function copyEnvVarsToGradleProperties {
         echo "Gradle Properties does not exist"
     fi
         echo "Creating Gradle Properties file..."
-        touch ${PATH}
+        cat > ${PATH}
 
         echo "Writing STORE_KEY to gradle.properties"
                 echo "STORE_KEY=$STORE_KEY" >> ${PATH}
