@@ -11,8 +11,8 @@ jobs:
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
-          name: Environment Setup
-          command: - source environmentSetup.sh && copyEnvVarsToGradleProperties
+          name: Setup environment
+          command: environmentSetup.sh && copyEnvVarsToGradleProperties
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
