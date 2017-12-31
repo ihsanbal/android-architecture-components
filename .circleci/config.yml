@@ -12,7 +12,7 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
           name: Setup environment
-          command: scripts/environmentSetup.sh
+          command: bash scripts/environmentSetup.sh
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
