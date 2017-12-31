@@ -1,24 +1,63 @@
 apply plugin: 'com.android.application'
 
+def buildVersionCode = new Date().format("yyMMddHHmm", TimeZone.getTimeZone("Europe/Istanbul")).toInteger()
+def buildVersionName = "1.0"
+
 android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.arc"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        versionCode buildVersionCode
+        versionName buildVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "API_KEY", "\"" + API_KEY + "\"")
+        buildConfigField("String", "END_POINT", "\"https://newsapi.org/v2/\"")
     }
+
+    signingConfigs {
+        release {
+            storeFile rootProject.file('.keystore/arc.keystore')
+            storePassword "${STORE_KEY}"
+            keyPassword "${STORE_KEY}"
+            keyAlias "arc"
+        }
+    }
+
     buildTypes {
         release {
             postprocessing {
-                removeUnusedCode false
-                removeUnusedResources false
-                obfuscate false
-                optimizeCode false
+                removeUnusedCode true
+                removeUnusedResources true
+                obfuscate true
+                optimizeCode true
                 proguardFile 'proguard-rules.pro'
             }
+            signingConfig signingConfigs.release
+
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = outputFileName.replace("-release", "-release-" + buildVersionName + "-" + buildVersionCode)
+                }
+            }
+        }
+        debug {
+            applicationIdSuffix '.debug'
+        }
+    }
+
+    flavorDimensions 'dimension'
+
+    productFlavors {
+        internal {
+            applicationId 'com.example.arc.internal'
+            resValue "string", "app_name", '"Arc Internal"'
+        }
+
+        production {
+            applicationId 'com.example.arc'
+            resValue "string", "app_name", '"Arc"'
         }
     }
     dataBinding {

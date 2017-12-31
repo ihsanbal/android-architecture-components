@@ -12,10 +12,10 @@ import retrofit2.http.Query;
  */
 
 public interface Api {
-    @GET("sources?apiKey=a98d7b6e186f4a5395c26aa4dfe3260d")
+    @GET("sources")
     Observable<Sources> sources();
 
-    @GET("top-headlines?apiKey=a98d7b6e186f4a5395c26aa4dfe3260d")
+    @GET("top-headlines")
     Observable<Articles> topHeadlines(@Query("sources") String sources);
 
 

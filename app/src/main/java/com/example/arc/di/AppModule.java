@@ -9,6 +9,7 @@ import com.example.arc.BuildConfig;
 import com.example.arc.api.Api;
 import com.example.arc.core.AppSchedulerProvider;
 import com.example.arc.core.Constants;
+import com.example.arc.core.UrlInterceptor;
 import com.example.arc.model.db.AppDatabase;
 import com.ihsanbal.logging.Level;
 import com.ihsanbal.logging.LoggingInterceptor;
@@ -56,8 +57,15 @@ public class AppModule {
 
     @Provides
     @Singleton
-    OkHttpClient provideOkHttp(LoggingInterceptor interceptor) {
+    UrlInterceptor provideNetworkInterceptor() {
+        return new UrlInterceptor();
+    }
+
+    @Provides
+    @Singleton
+    OkHttpClient provideOkHttp(LoggingInterceptor interceptor, UrlInterceptor urlInterceptor) {
         return new OkHttpClient.Builder()
+                .addInterceptor(urlInterceptor)
                 .addNetworkInterceptor(interceptor)
                 .build();
     }
@@ -68,7 +76,7 @@ public class AppModule {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl("https://newsapi.org/v2/")
+                .baseUrl(BuildConfig.END_POINT)
                 .client(client)
                 .build();
     }

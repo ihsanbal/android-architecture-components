@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">android-architecture-components</string>
     <string name="str_news">NEWS</string>
     <string name="str_feed">FEED</string>
     <string name="str_sources">Sources</string>
