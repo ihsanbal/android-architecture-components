@@ -28,6 +28,6 @@ jobs:
           destination: reports
       - store_test_results:
           path: app/build/test-results
-      - run:
-          name: Build
-          command: if [ "${CIRCLE_BRANCH}" == "master" ]; then ./gradlew assembleRelease fi
+#      - run:
+#          name: Build
+#          command: if [ "${CIRCLE_BRANCH}" == "master" ]; then ./gradlew assembleRelease fi
