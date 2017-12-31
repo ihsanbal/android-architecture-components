@@ -21,19 +21,19 @@
 #!/usr/bin/env bash
 
 function copyEnvVarsToGradleProperties {
-    GRADLE_PROPERTIES=$CIRCLE_WORKING_DIRECTORY"/.gradle/gradle.properties"
+    PATH=$CIRCLE_WORKING_DIRECTORY"~/.gradle/gradle.properties"
 
-    if [ ! -f "$GRADLE_PROPERTIES" ]; then
+    if [ ! -f "$PATH" ]; then
         echo "Gradle Properties does not exist"
     fi
         echo "Creating Gradle Properties file..."
-        touch ${GRADLE_PROPERTIES}
+        touch ${PATH}
 
         echo "Writing STORE_KEY to gradle.properties"
-                echo "STORE_KEY=$STORE_KEY" >> ${GRADLE_PROPERTIES}
+                echo "STORE_KEY=$STORE_KEY" >> ${PATH}
 
         echo "Writing API_KEY to gradle.properties..."
-                echo "API_KEY=$API_KEY" >> ${GRADLE_PROPERTIES}
+                echo "API_KEY=$API_KEY" >> ${PATH}
 
 }
 
