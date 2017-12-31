@@ -36,3 +36,5 @@ function copyEnvVarsToGradleProperties {
                 echo "API_KEY=$API_KEY" >> ${GRADLE_PROPERTIES}
 
 }
+
+copyEnvVarsToGradleProperties
