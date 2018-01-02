@@ -6,7 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-import com.example.arc.model.Article;
+import com.example.arc.model.data.Article;
 
 import java.util.List;
 

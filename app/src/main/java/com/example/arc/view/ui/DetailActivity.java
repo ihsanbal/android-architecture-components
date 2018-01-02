@@ -1,4 +1,4 @@
-package com.example.arc.ui.detail;
+package com.example.arc.view.ui;
 
 import android.arch.lifecycle.LiveData;
 import android.content.Context;
@@ -10,8 +10,9 @@ import android.view.MenuItem;
 
 import com.example.arc.R;
 import com.example.arc.databinding.ActivityDetailBinding;
-import com.example.arc.model.Article;
-import com.example.arc.ui.BaseBindingActivity;
+import com.example.arc.model.data.Article;
+import com.example.arc.view.BaseBindingActivity;
+import com.example.arc.viewmodel.DetailViewModel;
 
 /**
  * @author ihsan on 12/28/17.
@@ -36,7 +37,9 @@ public class DetailActivity extends BaseBindingActivity<DetailViewModel, Activit
         if (article != null) {
             article.observe(this, (Article item) -> {
                 binding.setArticle(item);
-                binding.webView.loadData(item.getDescription(), "text/html", "utf-8");
+                if (item != null) {
+                    binding.webView.loadData(item.getDescription(), "text/html", "utf-8");
+                }
             });
         }
     }

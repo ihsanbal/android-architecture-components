@@ -7,13 +7,13 @@
 
         <variable
             name="source"
-            type="com.example.arc.model.Source" />
+            type="com.example.arc.model.data.Source" />
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.splash.SplashActivity">
+        tools:context=".view.ui.splash.SplashActivity">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"

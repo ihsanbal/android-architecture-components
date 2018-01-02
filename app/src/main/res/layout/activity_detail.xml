@@ -7,7 +7,7 @@
 
         <variable
             name="article"
-            type="com.example.arc.model.Article" />
+            type="com.example.arc.model.data.Article" />
     </data>
 
     <android.support.v4.widget.NestedScrollView
@@ -18,7 +18,7 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.splash.SplashActivity">
+            tools:context=".view.ui.splash.SplashActivity">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

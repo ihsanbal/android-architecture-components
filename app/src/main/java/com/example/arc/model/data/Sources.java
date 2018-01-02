@@ -1,4 +1,4 @@
-package com.example.arc.model;
+package com.example.arc.model.data;
 
 import java.util.List;
 

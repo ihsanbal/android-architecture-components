@@ -1,13 +1,13 @@
-package com.example.arc.ui.source;
+package com.example.arc.viewmodel;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.example.arc.api.Api;
-import com.example.arc.api.DataRepository;
+import com.example.arc.model.api.Api;
+import com.example.arc.model.db.DataRepository;
 import com.example.arc.core.AppSchedulerProvider;
-import com.example.arc.model.Source;
-import com.example.arc.model.Sources;
+import com.example.arc.model.data.Source;
+import com.example.arc.model.data.Sources;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class SourceViewModel extends ViewModel {
         this.schedulerProvider = schedulerProvider;
     }
 
-    void getSourceList(Observer<Sources> observer, List<Source> sourceList) {
+    public void getSourceList(Observer<Sources> observer, List<Source> sourceList) {
         api.sources()
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())
@@ -53,15 +53,15 @@ public class SourceViewModel extends ViewModel {
                 .subscribe(observer);
     }
 
-    LiveData<List<Source>> getSourceList() {
+    public LiveData<List<Source>> getSourceList() {
         return sourceList;
     }
 
-    void insert(Source item) {
+    public void insert(Source item) {
         repository.insertSource(item);
     }
 
-    void delete(String id) {
+    public void delete(String id) {
         repository.deleteSource(id);
     }
 }

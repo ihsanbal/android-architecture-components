@@ -1,8 +1,8 @@
 package com.example.arc.di;
 
-import com.example.arc.ui.detail.DetailActivity;
-import com.example.arc.ui.main.MainActivity;
-import com.example.arc.ui.source.SourcesActivity;
+import com.example.arc.view.ui.DetailActivity;
+import com.example.arc.view.ui.MainActivity;
+import com.example.arc.view.ui.SourcesActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

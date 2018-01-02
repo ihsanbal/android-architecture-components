@@ -1,4 +1,4 @@
-package com.example.arc.ui.main;
+package com.example.arc.view.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -9,12 +9,11 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.arc.R;
-import com.example.arc.adapter.NewsAdapter;
+import com.example.arc.view.adapter.NewsAdapter;
 import com.example.arc.databinding.ActivityMainBinding;
-import com.example.arc.model.Article;
-import com.example.arc.ui.BaseBindingActivity;
-import com.example.arc.ui.detail.DetailActivity;
-import com.example.arc.ui.source.SourcesActivity;
+import com.example.arc.model.data.Article;
+import com.example.arc.view.BaseBindingActivity;
+import com.example.arc.viewmodel.MainViewModel;
 
 import java.util.ArrayList;
 
@@ -48,12 +47,22 @@ public class MainActivity extends BaseBindingActivity<MainViewModel, ActivityMai
         binding.toolbar.inflateMenu(R.menu.main_menu);
         binding.toolbar.setOnMenuItemClickListener(this);
         this.viewModel = viewModel;
+        init(instance, viewModel);
+    }
+
+    private void init(Bundle instance, MainViewModel viewModel) {
         if (instance != null) {
             ArrayList<Article> articles = instance.getParcelableArrayList(KEY_ARTICLES);
             mAdapter.setData(articles);
         } else {
             viewModel.getArticleList().observe(this, articles -> mAdapter.setData((ArrayList<Article>) articles));
-            viewModel.getSourceList().observe(this, t -> callNews());
+            viewModel.getSourceList().observe(this, sources -> {
+                if (sources != null && sources.size() > 0) {
+                    callNews();
+                } else {
+                    SourcesActivity.start(this);
+                }
+            });
         }
     }
 

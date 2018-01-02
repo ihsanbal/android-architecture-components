@@ -1,7 +1,7 @@
-package com.example.arc.api;
+package com.example.arc.model.api;
 
-import com.example.arc.model.Articles;
-import com.example.arc.model.Sources;
+import com.example.arc.model.data.Articles;
+import com.example.arc.model.data.Sources;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;

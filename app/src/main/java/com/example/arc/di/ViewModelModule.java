@@ -3,9 +3,9 @@ package com.example.arc.di;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
-import com.example.arc.ui.detail.DetailViewModel;
-import com.example.arc.ui.main.MainViewModel;
-import com.example.arc.ui.source.SourceViewModel;
+import com.example.arc.viewmodel.DetailViewModel;
+import com.example.arc.viewmodel.MainViewModel;
+import com.example.arc.viewmodel.SourceViewModel;
 import com.example.arc.viewmodel.ViewModelFactory;
 
 import dagger.Binds;

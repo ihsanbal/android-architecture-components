@@ -1,4 +1,4 @@
-package com.example.arc.ui.source;
+package com.example.arc.view.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,12 +9,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.example.arc.R;
-import com.example.arc.adapter.SourcesAdapter;
+import com.example.arc.view.adapter.SourcesAdapter;
 import com.example.arc.databinding.ActivitySourcesBinding;
-import com.example.arc.model.Source;
-import com.example.arc.model.Sources;
-import com.example.arc.ui.BaseBindingActivity;
-import com.example.arc.ui.main.MainActivity;
+import com.example.arc.model.data.Source;
+import com.example.arc.model.data.Sources;
+import com.example.arc.view.BaseBindingActivity;
+import com.example.arc.viewmodel.SourceViewModel;
 
 import java.util.ArrayList;
 

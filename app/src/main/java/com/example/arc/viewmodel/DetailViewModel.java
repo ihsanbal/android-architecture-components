@@ -1,9 +1,9 @@
-package com.example.arc.ui.detail;
+package com.example.arc.viewmodel;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.example.arc.model.Article;
+import com.example.arc.model.data.Article;
 import com.example.arc.model.db.AppDatabase;
 import com.example.arc.model.db.ArticleDao;
 
@@ -22,7 +22,7 @@ public class DetailViewModel extends ViewModel {
         this.articleDao = database.articleDao();
     }
 
-    LiveData<Article> getArticle(int id) {
+    public LiveData<Article> getArticle(int id) {
         return articleDao.get(id);
     }
 }

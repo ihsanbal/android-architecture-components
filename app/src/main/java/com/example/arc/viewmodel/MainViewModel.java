@@ -1,4 +1,4 @@
-package com.example.arc.ui.main;
+package com.example.arc.viewmodel;
 
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
@@ -9,12 +9,12 @@ import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.example.arc.api.Api;
-import com.example.arc.api.DataRepository;
+import com.example.arc.model.api.Api;
+import com.example.arc.model.db.DataRepository;
 import com.example.arc.core.AppSchedulerProvider;
-import com.example.arc.model.Article;
-import com.example.arc.model.Articles;
-import com.example.arc.model.Source;
+import com.example.arc.model.data.Article;
+import com.example.arc.model.data.Articles;
+import com.example.arc.model.data.Source;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -50,15 +50,15 @@ public class MainViewModel extends ViewModel implements LifecycleOwner {
         articleList.observe(this, listMutableLiveData::setValue);
     }
 
-    LiveData<List<Article>> getArticleList() {
+    public LiveData<List<Article>> getArticleList() {
         return articleList;
     }
 
-    LiveData<List<Source>> getSourceList() {
+    public LiveData<List<Source>> getSourceList() {
         return sourceList;
     }
 
-    LiveData<List<Article>> getArticleLiveList() {
+    public LiveData<List<Article>> getArticleLiveList() {
         api.topHeadlines(repository.getQuery())
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())

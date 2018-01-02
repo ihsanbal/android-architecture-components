@@ -1,4 +1,4 @@
-package com.example.arc.adapter;
+package com.example.arc.view.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -6,42 +6,46 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.arc.BR;
 import com.example.arc.R;
-import com.example.arc.model.Source;
+import com.example.arc.model.data.Article;
 
 import java.util.ArrayList;
 
 /**
- * @author ihsan on 12/18/17.
+ * @author ihsan on 12/19/17.
  */
 
-public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHolder> {
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
-    private ArrayList<Source> data;
+    private ArrayList<Article> data;
     private ItemSelectedListener listener;
 
-    public SourcesAdapter() {
-        this.data = new ArrayList<>();
+
+    public NewsAdapter() {
+        data = new ArrayList<>();
     }
 
-    public void setData(ArrayList<Source> data) {
+    public void setData(ArrayList<Article> data) {
         this.data.clear();
         this.data.addAll(data);
         notifyDataSetChanged();
     }
 
+    public ArrayList<Article> getData() {
+        return data;
+    }
+
     @Override
-    public SourcesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ViewDataBinding binding = DataBindingUtil.inflate(
-                LayoutInflater.from(parent.getContext()), R.layout.item_source_view, parent, false);
+                LayoutInflater.from(parent.getContext()), R.layout.item_news_view, parent, false);
         return new ViewHolder(binding, listener);
     }
 
     @Override
-    public void onBindViewHolder(SourcesAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         holder.bind(data.get(position));
     }
 
@@ -51,39 +55,34 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
     }
 
     public interface ItemSelectedListener {
-        void onItemSelected(Source item);
+        void onItemSelected(View view, Article item);
     }
 
-    public void setItemSelectedListener(ItemSelectedListener listener) {
+    public void setOnItemClickListener(ItemSelectedListener listener) {
         this.listener = listener;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         private final ViewDataBinding binding;
         private final ItemSelectedListener listener;
-        private final Button mButton;
 
         ViewHolder(ViewDataBinding binding, ItemSelectedListener listener) {
             super(binding.getRoot());
-            mButton = binding.getRoot().findViewById(R.id.button);
-            mButton.setOnClickListener(this);
             this.binding = binding;
             this.listener = listener;
+            binding.getRoot().setOnClickListener(this);
         }
 
-        void bind(Source source) {
-            binding.setVariable(BR.source, source);
+        void bind(Article data) {
+            binding.setVariable(BR.article, data);
             binding.executePendingBindings();
-            mButton.setText(source.isSelected() ? "Remove" : "Add");
         }
 
         @Override
         public void onClick(View view) {
             if (listener != null) {
-                Source item = data.get(getAdapterPosition());
-                item.setSelected(!item.isSelected());
-                notifyItemChanged(getAdapterPosition());
-                listener.onItemSelected(item);
+                listener.onItemSelected(view, data.get(getAdapterPosition()));
             }
         }
     }

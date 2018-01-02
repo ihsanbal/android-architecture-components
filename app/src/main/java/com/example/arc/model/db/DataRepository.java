@@ -1,12 +1,9 @@
-package com.example.arc.api;
+package com.example.arc.model.db;
 
 import android.arch.lifecycle.LiveData;
 
-import com.example.arc.model.Article;
-import com.example.arc.model.Source;
-import com.example.arc.model.db.AppDatabase;
-import com.example.arc.model.db.ArticleDao;
-import com.example.arc.model.db.SourceDao;
+import com.example.arc.model.data.Article;
+import com.example.arc.model.data.Source;
 
 import java.util.List;
 

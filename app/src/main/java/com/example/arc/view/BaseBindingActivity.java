@@ -1,4 +1,4 @@
-package com.example.arc.ui;
+package com.example.arc.view;
 
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.ViewModel;
