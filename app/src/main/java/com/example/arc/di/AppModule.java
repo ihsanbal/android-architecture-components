@@ -7,10 +7,9 @@ import android.content.SharedPreferences;
 
 import com.example.arc.BuildConfig;
 import com.example.arc.IdlingResources;
-import com.example.arc.model.api.Api;
 import com.example.arc.core.AppSchedulerProvider;
 import com.example.arc.core.Constants;
-import com.example.arc.core.UrlInterceptor;
+import com.example.arc.model.api.Api;
 import com.example.arc.model.db.AppDatabase;
 import com.ihsanbal.logging.Level;
 import com.ihsanbal.logging.LoggingInterceptor;
@@ -53,20 +52,14 @@ public class AppModule {
                 .log(Platform.INFO)
                 .request("Request")
                 .response("Response")
+                .addQueryParam("apiKey", BuildConfig.API_KEY)
                 .build();
     }
 
     @Provides
     @Singleton
-    UrlInterceptor provideNetworkInterceptor() {
-        return new UrlInterceptor();
-    }
-
-    @Provides
-    @Singleton
-    OkHttpClient provideOkHttp(LoggingInterceptor interceptor, UrlInterceptor urlInterceptor) {
+    OkHttpClient provideOkHttp(LoggingInterceptor interceptor) {
         return new OkHttpClient.Builder()
-                .addInterceptor(urlInterceptor)
                 .addNetworkInterceptor(interceptor)
                 .build();
     }

@@ -73,7 +73,7 @@ dependencies {
     def supportVersion = "27.0.2"
     def daggerVersion = "2.13"
     def okHttpVersion = "3.9.1"
-    def interceptorVersion = "2.0.3"
+    def interceptorVersion = "2.0.4"
     def retrofitVersion = "2.3.0"
     def archVersion = "1.0.0"
     def rxAndroidVersion = "2.0.1"
