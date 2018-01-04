@@ -10,7 +10,6 @@ jobs:
       - checkout
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      - run: bash scripts/environmentSetup.sh
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
@@ -26,6 +25,6 @@ jobs:
           destination: reports
       - store_test_results:
           path: app/build/test-results
-#      - run:
-#          name: Build
-#          command: if [ "${CIRCLE_BRANCH}" == "master" ]; then ./gradlew assembleRelease fi
+      - run:
+          name: Build
+          command: ./gradlew assembleRelease

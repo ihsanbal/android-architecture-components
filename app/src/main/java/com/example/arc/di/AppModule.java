@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.arc.BuildConfig;
-import com.example.arc.IdlingResources;
 import com.example.arc.core.AppSchedulerProvider;
 import com.example.arc.core.Constants;
 import com.example.arc.model.api.Api;
@@ -67,9 +66,6 @@ public class AppModule {
     @Provides
     @Singleton
     Retrofit provideRetrofit(OkHttpClient client) {
-        if (BuildConfig.DEBUG) {
-            IdlingResources.registerOkHttp(client);
-        }
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

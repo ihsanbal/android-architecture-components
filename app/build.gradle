@@ -16,15 +16,6 @@ android {
         buildConfigField("String", "END_POINT", "\"https://newsapi.org/v2/\"")
     }
 
-    signingConfigs {
-        release {
-            storeFile rootProject.file('.keystore/arc.keystore')
-            storePassword "${STORE_KEY}"
-            keyPassword "${STORE_KEY}"
-            keyAlias "arc"
-        }
-    }
-
     buildTypes {
         release {
             postprocessing {
@@ -33,13 +24,6 @@ android {
                 obfuscate true
                 optimizeCode true
                 proguardFile 'proguard-rules.pro'
-            }
-            signingConfig signingConfigs.release
-
-            android.applicationVariants.all { variant ->
-                variant.outputs.all {
-                    outputFileName = outputFileName.replace("-release", "-release-" + buildVersionName + "-" + buildVersionCode)
-                }
             }
         }
         debug {
@@ -125,7 +109,7 @@ dependencies {
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$espressoVersion"
     debugImplementation "com.android.support.test.espresso.idling:idling-concurrent:$espressoVersion"
-    debugImplementation ("com.jakewharton.espresso:okhttp3-idling-resource:1.0.0") {
+    debugImplementation("com.jakewharton.espresso:okhttp3-idling-resource:1.0.0") {
         exclude module: 'support-annotations'
     }
 }

@@ -9,14 +9,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.example.arc.R;
-import com.example.arc.view.adapter.SourcesAdapter;
 import com.example.arc.databinding.ActivitySourcesBinding;
 import com.example.arc.model.data.Source;
 import com.example.arc.model.data.Sources;
 import com.example.arc.view.BaseBindingActivity;
+import com.example.arc.view.adapter.SourcesAdapter;
 import com.example.arc.viewmodel.SourceViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -31,6 +32,7 @@ public class SourcesActivity extends BaseBindingActivity<SourceViewModel, Activi
     private int count;
     private Snackbar snackBar;
     private SourceViewModel viewModel;
+    private android.arch.lifecycle.Observer<List<Source>> observer;
 
     @Override
     protected Class<SourceViewModel> getViewModel() {
@@ -56,32 +58,38 @@ public class SourcesActivity extends BaseBindingActivity<SourceViewModel, Activi
         binding.recyclerView.setAdapter(mAdapter);
         initSnackBar(binding.coordinatorLayout);
         this.viewModel = viewModel;
-        viewModel.getSourceList().observe(this, sources -> viewModel.getSourceList(new Observer<Sources>() {
-            @Override
-            public void onSubscribe(Disposable d) {
+        observer = (List<Source> sources) -> {
+            if (sources != null) {
+                count = sources.size();
+                viewModel.getSourceList(new Observer<Sources>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
+                    }
+
+                    @Override
+                    public void onNext(Sources sources) {
+                        mAdapter.setData((ArrayList<Source>) sources.getSources());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        viewModel.getSourceList().removeObserver(observer);
+                    }
+                }, sources);
             }
-
-            @Override
-            public void onNext(Sources sources) {
-                mAdapter.setData((ArrayList<Source>) sources.getSources());
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        }, sources));
+        };
+        viewModel.getSourceList().observe(this, observer);
     }
 
     private void initSnackBar(View root) {
         snackBar = Snackbar.make(root, "Let\'s check your feed", Snackbar.LENGTH_INDEFINITE).setAction("Start",
-                view -> startActivity(new Intent(SourcesActivity.this, MainActivity.class)));
+                view -> finish());
     }
 
     @Override
@@ -93,9 +101,9 @@ public class SourcesActivity extends BaseBindingActivity<SourceViewModel, Activi
             viewModel.delete(item.getId());
             count--;
         }
-        if (count == 2) {
+        if (count >= 1) {
             snackBar.show();
-        } else if (count < 2 && snackBar != null && snackBar.isShown()) {
+        } else if (count < 1 && snackBar != null && snackBar.isShown()) {
             snackBar.dismiss();
         }
     }
