@@ -15,7 +15,6 @@ import javax.inject.Inject;
 
 public class DataRepository {
 
-    private final List<Source> data;
     private ArticleDao articleDao;
     private SourceDao sourceDao;
 
@@ -23,7 +22,6 @@ public class DataRepository {
     DataRepository(AppDatabase database) {
         this.articleDao = database.articleDao();
         this.sourceDao = database.sourceDao();
-        data = sourceDao.getAllList();
     }
 
     public LiveData<List<Article>> getAllArticle() {
@@ -51,6 +49,7 @@ public class DataRepository {
     }
 
     public String getQuery() {
+        List<Source> data = sourceDao.getAllList();
         StringBuilder builder = new StringBuilder();
         if (data != null && data.size() > 0) {
             for (Source item : data) {
