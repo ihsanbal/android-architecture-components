@@ -27,4 +27,4 @@ jobs:
           path: app/build/test-results
       - run:
           name: Build
-          command: if [ "${CIRCLE_BRANCH}" == "master" ]; then ./gradlew assembleRelease fi
+          command: ./gradlew assembleRelease
