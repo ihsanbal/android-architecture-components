@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/androidarchitecturecomponents
+    working_directory: ~/android-architecture-components
     docker:
       - image: circleci/android:api-27-alpha
     environment:

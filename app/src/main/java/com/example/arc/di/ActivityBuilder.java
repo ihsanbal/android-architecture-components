@@ -12,7 +12,7 @@ import dagger.android.ContributesAndroidInjector;
  */
 
 @Module
-public abstract class ActivityBuilder {
+abstract class ActivityBuilder {
 
     @ContributesAndroidInjector
     abstract SourcesActivity bindSourceActivity();

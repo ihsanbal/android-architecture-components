@@ -7,5 +7,4 @@ package com.example.arc.core;
 public class Constants {
     public static final String PREFERENCES = "sp:reference";
     public static final String DB = "db-source";
-    public static String HAS_TOPICS = "sp:has_topics";
 }
