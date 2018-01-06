@@ -16,6 +16,7 @@ import dagger.multibindings.IntoMap;
  * @author ihsan on 12/27/17.
  */
 
+@SuppressWarnings("WeakerAccess")
 @Module
 public abstract class ViewModelModule {
 

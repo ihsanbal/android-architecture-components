@@ -25,9 +25,6 @@ public interface ArticleDao {
     @Query("DELETE FROM article")
     void clear();
 
-    @Query("DELETE FROM article WHERE id == :id")
-    void delete(String id);
-
     @Query("SELECT * FROM article WHERE id == :id")
     LiveData<Article> get(int id);
 }
