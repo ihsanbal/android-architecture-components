@@ -1,9 +1,8 @@
-Android Architecture Components Sample Project [![CircleCI](https://circleci.com/gh/ihsanbal/android-architecture-components/tree/master.svg?style=svg)](https://circleci.com/gh/ihsanbal/android-architecture-components/tree/master)
+Android Architecture Components Sample - [![CircleCI](https://circleci.com/gh/ihsanbal/android-architecture-components.svg?style=svg)](https://circleci.com/gh/ihsanbal/android-architecture-components)
 ===================================
-
 <p align="center">
-    <img src="https://github.com/ihsanbal/android-architecture-components/blob/master/images/sources.png"/>
-    <img src="https://github.com/ihsanbal/android-architecture-components/blob/master/images/feed.png"/>
+    <img src="https://github.com/ihsanbal/android-architecture-components/blob/master/images/sources.png" width="300" height="550"/>
+    <img src="https://github.com/ihsanbal/android-architecture-components/blob/master/images/feed.png" width="300" height="550"/>
 </p>
 
 ### Used Technologies and Patterns
