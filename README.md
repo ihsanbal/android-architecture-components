@@ -20,7 +20,7 @@ A Sample project of the news app that uses ViewModels, LiveData, Locale Cache wi
 - ViewModels
 - MVVM (Model-View-ViewModel)
 ### Guide
-- Replace [API_KEY](https://github.com/ihsanbal/android-architecture-components/blob/master/gradle.properties) with yours via [NEWS API](https://newsapi.org)
+- Replace [API_KEY](https://github.com/ihsanbal/android-architecture-components/blob/master/gradle.properties#L19) with yours via [NEWS API](https://newsapi.org)
 - Feel free to contribute.
 - Enjoy!
 ### Reporting Issues
