@@ -12,7 +12,7 @@ import com.example.arc.R;
 import com.example.arc.databinding.ActivitySourcesBinding;
 import com.example.arc.model.data.Source;
 import com.example.arc.model.data.Sources;
-import com.example.arc.view.BaseBindingActivity;
+import com.example.arc.core.base.BaseActivity;
 import com.example.arc.view.adapter.SourcesAdapter;
 import com.example.arc.viewmodel.SourceViewModel;
 
@@ -26,7 +26,7 @@ import io.reactivex.disposables.Disposable;
  * @author ihsan on 12/3/17.
  */
 
-public class SourcesActivity extends BaseBindingActivity<SourceViewModel, ActivitySourcesBinding> implements SourcesAdapter.ItemSelectedListener {
+public class SourcesActivity extends BaseActivity<SourceViewModel, ActivitySourcesBinding> implements SourcesAdapter.ItemSelectedListener {
 
     private SourcesAdapter mAdapter;
     private int count;

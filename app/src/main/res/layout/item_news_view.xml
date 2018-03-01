@@ -29,8 +29,8 @@
                 app:glideBinding="@{article.urlToImage}"
                 app:layout_constraintBottom_toTopOf="@+id/textView3"
                 app:layout_constraintTop_toTopOf="parent"
-                app:placeholder="@{@drawable/ic_launcher_background}"
-                app:srcCompat="@android:drawable/ic_lock_lock" />
+                app:placeholder="@{@drawable/ic_launcher_foreground}"
+                tools:src="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -50,7 +50,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView"
-                tools:text="ABC" />
+                tools:text="@tools:sample/full_names" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -69,7 +69,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView"
-                tools:text="01:00 pm" />
+                tools:text="@tools:sample/date/hhmm" />
 
             <TextView
                 android:id="@+id/textView"
@@ -89,7 +89,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3"
-                tools:text="abc-news" />
+                tools:text="@tools:sample/cities" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 

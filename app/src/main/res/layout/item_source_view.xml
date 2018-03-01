@@ -31,7 +31,7 @@
             app:layout_constraintEnd_toStartOf="@+id/button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="abc-news" />
+            tools:text="@tools:sample/cities" />
 
         <Button
             android:id="@+id/button"
@@ -43,6 +43,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Add" />
+            tools:text="@tools:sample/lorem" />
     </android.support.constraint.ConstraintLayout>
 </layout>

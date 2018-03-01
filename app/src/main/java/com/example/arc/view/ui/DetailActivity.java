@@ -11,20 +11,25 @@ import android.view.MenuItem;
 import com.example.arc.R;
 import com.example.arc.databinding.ActivityDetailBinding;
 import com.example.arc.model.data.Article;
-import com.example.arc.view.BaseBindingActivity;
+import com.example.arc.core.base.BaseActivity;
 import com.example.arc.viewmodel.DetailViewModel;
 
 /**
  * @author ihsan on 12/28/17.
  */
 
-public class DetailActivity extends BaseBindingActivity<DetailViewModel, ActivityDetailBinding> {
+public class DetailActivity extends BaseActivity<DetailViewModel, ActivityDetailBinding> {
 
     private static final String KEY_ITEM_ID = "item:article";
 
     @Override
     protected Class<DetailViewModel> getViewModel() {
         return DetailViewModel.class;
+    }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_detail;
     }
 
     @Override
@@ -42,11 +47,6 @@ public class DetailActivity extends BaseBindingActivity<DetailViewModel, Activit
                 }
             });
         }
-    }
-
-    @Override
-    protected int getLayoutResId() {
-        return R.layout.activity_detail;
     }
 
     @Override

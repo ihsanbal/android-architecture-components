@@ -16,11 +16,6 @@ public class AppSchedulerProvider implements SchedulerProvider {
     }
 
     @Override
-    public Scheduler computation() {
-        return Schedulers.computation();
-    }
-
-    @Override
     public Scheduler io() {
         return Schedulers.io();
     }

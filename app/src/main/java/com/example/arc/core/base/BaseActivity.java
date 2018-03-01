@@ -1,4 +1,4 @@
-package com.example.arc.view;
+package com.example.arc.core.base;
 
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.ViewModel;
@@ -18,7 +18,7 @@ import dagger.android.support.DaggerAppCompatActivity;
  * @author ihsan on 11/29/17.
  */
 
-public abstract class BaseBindingActivity<M extends ViewModel, B extends ViewDataBinding> extends DaggerAppCompatActivity {
+public abstract class BaseActivity<M extends ViewModel, B extends ViewDataBinding> extends DaggerAppCompatActivity {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;

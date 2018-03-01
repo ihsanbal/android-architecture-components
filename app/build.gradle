@@ -55,7 +55,7 @@ android {
 
 dependencies {
     def supportVersion = "27.0.2"
-    def daggerVersion = "2.13"
+    def daggerVersion = "2.14.1"
     def okHttpVersion = "3.9.1"
     def interceptorVersion = "2.0.4"
     def retrofitVersion = "2.3.0"
@@ -78,6 +78,7 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$archVersion"
     implementation "android.arch.persistence.room:runtime:$archVersion"
     implementation "android.arch.lifecycle:runtime:$archVersion"
+//    implementation "android.arch.persistence.room:rxjava2:$archVersion"
     annotationProcessor "android.arch.lifecycle:compiler:$archVersion"
     annotationProcessor "android.arch.persistence.room:compiler:$archVersion"
 

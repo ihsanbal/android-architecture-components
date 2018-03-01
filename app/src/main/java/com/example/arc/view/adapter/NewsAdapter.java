@@ -22,7 +22,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     private ArrayList<Article> data;
     private ItemSelectedListener listener;
 
-
     public NewsAdapter() {
         data = new ArrayList<>();
     }

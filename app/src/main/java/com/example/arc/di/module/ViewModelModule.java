@@ -1,8 +1,9 @@
-package com.example.arc.di;
+package com.example.arc.di.module;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
+import com.example.arc.di.ViewModelKey;
 import com.example.arc.viewmodel.DetailViewModel;
 import com.example.arc.viewmodel.MainViewModel;
 import com.example.arc.viewmodel.SourceViewModel;
@@ -23,7 +24,7 @@ public abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(MainViewModel.class)
-    abstract ViewModel bindsMovieViewModel(MainViewModel mainViewModel);
+    abstract ViewModel bindsMainViewModel(MainViewModel mainViewModel);
 
     @Binds
     @IntoMap
@@ -36,6 +37,6 @@ public abstract class ViewModelModule {
     abstract ViewModel bindsDetailViewModel(DetailViewModel sourceViewModel);
 
     @Binds
-    abstract ViewModelProvider.Factory bindsViewModelFactory(ViewModelFactory movieViewModelFactory);
+    abstract ViewModelProvider.Factory bindsViewModelFactory(ViewModelFactory viewModelFactory);
 
 }

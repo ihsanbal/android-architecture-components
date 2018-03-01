@@ -9,10 +9,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.arc.R;
-import com.example.arc.view.adapter.NewsAdapter;
+import com.example.arc.core.base.BaseActivity;
 import com.example.arc.databinding.ActivityMainBinding;
 import com.example.arc.model.data.Article;
-import com.example.arc.view.BaseBindingActivity;
+import com.example.arc.view.adapter.NewsAdapter;
 import com.example.arc.viewmodel.MainViewModel;
 
 import java.util.ArrayList;
@@ -21,11 +21,9 @@ import java.util.ArrayList;
  * @author ihsan on 12/19/17.
  */
 
-public class MainActivity extends BaseBindingActivity<MainViewModel, ActivityMainBinding> implements Toolbar.OnMenuItemClickListener, NewsAdapter.ItemSelectedListener {
+public class MainActivity extends BaseActivity<MainViewModel, ActivityMainBinding> implements Toolbar.OnMenuItemClickListener, NewsAdapter.ItemSelectedListener {
 
-    private static final String KEY_ARTICLES = "key:articles";
     private NewsAdapter mAdapter;
-    private MainViewModel viewModel;
 
     @Override
     protected Class<MainViewModel> getViewModel() {
@@ -46,34 +44,16 @@ public class MainActivity extends BaseBindingActivity<MainViewModel, ActivityMai
         binding.toolbar.setTitle(R.string.str_feed);
         binding.toolbar.inflateMenu(R.menu.main_menu);
         binding.toolbar.setOnMenuItemClickListener(this);
-        this.viewModel = viewModel;
-        init(instance, viewModel);
+        init(viewModel);
     }
 
-    private void init(Bundle instance, MainViewModel viewModel) {
-        if (instance != null) {
-            ArrayList<Article> articles = instance.getParcelableArrayList(KEY_ARTICLES);
-            mAdapter.setData(articles);
-        } else {
-            viewModel.getArticleList().observe(this, articles -> mAdapter.setData((ArrayList<Article>) articles));
-            viewModel.getSourceList().observe(this, sources -> {
-                if (sources != null && sources.size() > 0) {
-                    callNews();
-                } else {
-                    SourcesActivity.start(this);
-                }
-            });
-        }
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList(KEY_ARTICLES, mAdapter.getData());
-    }
-
-    private void callNews() {
-        viewModel.getArticleLiveList().observe(this, articles -> mAdapter.setData((ArrayList<Article>) articles));
+    private void init(MainViewModel viewModel) {
+        viewModel.getArticleList().observe(this, articles -> mAdapter.setData((ArrayList<Article>) articles));
+        viewModel.getSourceList().observe(this, sources -> {
+            if (sources == null || sources.size() < 1) {
+                SourcesActivity.start(this);
+            }
+        });
     }
 
     @Override

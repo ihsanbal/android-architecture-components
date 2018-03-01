@@ -1,15 +1,7 @@
-package com.example.arc.di;
-
-import android.app.Application;
-import android.arch.persistence.room.Room;
-import android.content.Context;
-import android.content.SharedPreferences;
+package com.example.arc.di.module;
 
 import com.example.arc.BuildConfig;
-import com.example.arc.core.AppSchedulerProvider;
-import com.example.arc.core.Constants;
 import com.example.arc.model.api.Api;
-import com.example.arc.model.db.AppDatabase;
 import com.ihsanbal.logging.Level;
 import com.ihsanbal.logging.LoggingInterceptor;
 
@@ -24,23 +16,10 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * @author ihsan on 12/2/17.
+ * @author ihsan on 2/28/18.
  */
-
-@Module(includes = ViewModelModule.class)
-public class AppModule {
-
-    @Provides
-    @Singleton
-    AppSchedulerProvider provideSchedulerProvider() {
-        return new AppSchedulerProvider();
-    }
-
-    @Provides
-    @Singleton
-    SharedPreferences provideSplashViewModel(Application context) {
-        return context.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
-    }
+@Module
+public class NetworkModule {
 
     @Provides
     @Singleton
@@ -71,15 +50,6 @@ public class AppModule {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl(BuildConfig.END_POINT)
                 .client(client)
-                .build();
-    }
-
-    @Provides
-    @Singleton
-    AppDatabase provideAppDatabase(Application context) {
-        return Room.databaseBuilder(context,
-                AppDatabase.class, Constants.DB)
-                .allowMainThreadQueries()
                 .build();
     }
 
