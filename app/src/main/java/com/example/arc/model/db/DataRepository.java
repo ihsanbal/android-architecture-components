@@ -1,6 +1,5 @@
 package com.example.arc.model.db;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.example.arc.core.AppSchedulerProvider;
@@ -10,6 +9,7 @@ import com.example.arc.model.api.Api;
 import com.example.arc.model.data.Article;
 import com.example.arc.model.data.Articles;
 import com.example.arc.model.data.Source;
+import com.example.arc.model.data.Sources;
 
 import java.util.List;
 
@@ -25,14 +25,14 @@ import io.reactivex.disposables.Disposable;
 
 public class DataRepository implements BaseViewModel {
 
-    private final List<Source> dataList;
+    private final List<Source> sourceList;
     private CompositeDisposable disposables = new CompositeDisposable();
     private final Api api;
-    private final MutableLiveData<List<Article>> listMutableLiveData;
+    private final MutableLiveData<List<Article>> articleMutableLiveData;
+    private final MutableLiveData<List<Source>> sourceMutableLiveData;
     private final AppSchedulerProvider schedulerProvider;
     private final SourceDao sourceDao;
     private final ArticleDao articleDao;
-    private final LiveData<List<Source>> sourceList;
 
     @Inject
     DataRepository(AppDatabase database, Api api, AppSchedulerProvider schedulerProvider) {
@@ -40,19 +40,11 @@ public class DataRepository implements BaseViewModel {
         this.schedulerProvider = schedulerProvider;
         sourceDao = database.sourceDao();
         articleDao = database.articleDao();
-        dataList = sourceDao.getAllList();
-        sourceList = sourceDao.getAll();
-        listMutableLiveData = new MutableLiveData<>();
-        listMutableLiveData.postValue(articleDao.getAll());
-        getArticleLiveList();
-    }
-
-    public LiveData<List<Article>> getAllArticle() {
-        return listMutableLiveData;
-    }
-
-    public LiveData<List<Source>> getAllSource() {
-        return sourceList;
+        sourceList = sourceDao.getAllList();
+        articleMutableLiveData = new MutableLiveData<>();
+        sourceMutableLiveData = new MutableLiveData<>();
+        sourceMutableLiveData.postValue(sourceList);
+        articleMutableLiveData.postValue(articleDao.getAll());
     }
 
     public void insertSource(Source item) {
@@ -63,7 +55,47 @@ public class DataRepository implements BaseViewModel {
         sourceDao.delete(id);
     }
 
-    private void getArticleLiveList() {
+    public MutableLiveData<List<Source>> getSourceLiveList() {
+        api.sources()
+                .observeOn(schedulerProvider.ui())
+                .subscribeOn(schedulerProvider.io())
+                .map(sources -> {
+                    if (sourceList != null) {
+                        for (Source item : sources.getSources()) {
+                            for (Source data : sourceList) {
+                                if (item.getId().equals(data.getId())) {
+                                    item.setSelected(true);
+                                }
+                            }
+                        }
+                    }
+                    return sources;
+                })
+                .subscribe(new Observer<Sources>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposables.add(d);
+                    }
+
+                    @Override
+                    public void onNext(Sources sources) {
+                        sourceMutableLiveData.postValue(sources.getSources());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+        return sourceMutableLiveData;
+    }
+
+    public MutableLiveData<List<Article>> getArticleLiveList() {
         api.topHeadlines(getQuery())
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())
@@ -78,7 +110,7 @@ public class DataRepository implements BaseViewModel {
                     public void onNext(Articles articles) {
                         articleDao.clear();
                         articleDao.insert(articles.getArticles());
-                        listMutableLiveData.postValue(articleDao.getAll());
+                        articleMutableLiveData.postValue(articleDao.getAll());
                     }
 
                     @Override
@@ -91,12 +123,13 @@ public class DataRepository implements BaseViewModel {
 
                     }
                 });
+        return articleMutableLiveData;
     }
 
     private String getQuery() {
         StringBuilder builder = new StringBuilder();
-        if (dataList != null && dataList.size() > 0) {
-            for (Source item : dataList) {
+        if (sourceList != null && sourceList.size() > 0) {
+            for (Source item : sourceList) {
                 builder.append(item.getId()).append(",");
             }
             builder.deleteCharAt(builder.lastIndexOf(","));

@@ -1,6 +1,8 @@
 <resources>
     <string name="str_news">NEWS</string>
     <string name="str_feed">FEED</string>
+    <string name="str_add">ADD</string>
+    <string name="str_remove">REMOVE</string>
     <string name="str_sources">Sources</string>
     <string name="trans_shared_image">shared_image</string>
 </resources>

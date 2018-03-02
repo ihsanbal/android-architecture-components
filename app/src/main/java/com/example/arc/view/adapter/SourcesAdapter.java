@@ -6,8 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
+import com.example.arc.BR;
 import com.example.arc.R;
 import com.example.arc.model.data.Source;
 
@@ -59,17 +59,18 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final ItemSelectedListener listener;
-        private final Button mButton;
+        private final ViewDataBinding binding;
 
         ViewHolder(ViewDataBinding binding, ItemSelectedListener listener) {
             super(binding.getRoot());
-            mButton = binding.getRoot().findViewById(R.id.button);
-            mButton.setOnClickListener(this);
+            binding.getRoot().findViewById(R.id.button).setOnClickListener(this);
+            this.binding = binding;
             this.listener = listener;
         }
 
         void bind(Source source) {
-            mButton.setText(source.isSelected() ? "Remove" : "Add");
+            binding.setVariable(BR.source, source);
+            binding.executePendingBindings();
         }
 
         @Override

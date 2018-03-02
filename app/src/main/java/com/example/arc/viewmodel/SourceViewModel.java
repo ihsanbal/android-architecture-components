@@ -3,17 +3,12 @@ package com.example.arc.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.example.arc.model.api.Api;
-import com.example.arc.model.db.DataRepository;
-import com.example.arc.core.AppSchedulerProvider;
 import com.example.arc.model.data.Source;
-import com.example.arc.model.data.Sources;
+import com.example.arc.model.db.DataRepository;
 
 import java.util.List;
 
 import javax.inject.Inject;
-
-import io.reactivex.Observer;
 
 /**
  * @author ihsan on 12/10/17.
@@ -21,36 +16,13 @@ import io.reactivex.Observer;
 
 public class SourceViewModel extends ViewModel {
 
-    private final LiveData<List<Source>> sourceList;
-    private final Api api;
-    private final AppSchedulerProvider schedulerProvider;
     private final DataRepository repository;
+    private final LiveData<List<Source>> sourceList;
 
     @Inject
-    SourceViewModel(DataRepository repository, Api api, AppSchedulerProvider schedulerProvider) {
-        sourceList = repository.getAllSource();
+    SourceViewModel(DataRepository repository) {
         this.repository = repository;
-        this.api = api;
-        this.schedulerProvider = schedulerProvider;
-    }
-
-    public void getSourceList(Observer<Sources> observer, List<Source> sourceList) {
-        api.sources()
-                .observeOn(schedulerProvider.ui())
-                .subscribeOn(schedulerProvider.io())
-                .map(sources -> {
-                    if (sourceList != null) {
-                        for (Source item : sources.getSources()) {
-                            for (Source data : sourceList) {
-                                if (item.getId().equals(data.getId())) {
-                                    item.setSelected(true);
-                                }
-                            }
-                        }
-                    }
-                    return sources;
-                })
-                .subscribe(observer);
+        sourceList = repository.getSourceLiveList();
     }
 
     public LiveData<List<Source>> getSourceList() {
@@ -63,5 +35,11 @@ public class SourceViewModel extends ViewModel {
 
     public void delete(String id) {
         repository.deleteSource(id);
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        repository.onClear();
     }
 }

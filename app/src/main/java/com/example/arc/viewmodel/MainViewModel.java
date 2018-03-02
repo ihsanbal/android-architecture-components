@@ -24,8 +24,8 @@ public class MainViewModel extends ViewModel {
     @Inject
     MainViewModel(DataRepository repository) {
         this.repository = repository;
-        articleList = repository.getAllArticle();
-        sourceList = repository.getAllSource();
+        articleList = repository.getArticleLiveList();
+        sourceList = repository.getSourceLiveList();
     }
 
     public LiveData<List<Article>> getArticleList() {

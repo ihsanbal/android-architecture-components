@@ -1,6 +1,5 @@
 package com.example.arc.model.db;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
@@ -15,9 +14,6 @@ import java.util.List;
  */
 @Dao
 public interface SourceDao {
-
-    @Query("SELECT * FROM source")
-    LiveData<List<Source>> getAll();
 
     @Query("SELECT * FROM source")
     List<Source> getAllList();

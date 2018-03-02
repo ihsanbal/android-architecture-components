@@ -39,6 +39,7 @@
             android:layout_height="35dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/square_border"
+            android:text="@{source.selected ? @string/str_remove : @string/str_add}"
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
